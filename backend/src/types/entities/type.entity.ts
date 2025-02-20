@@ -8,7 +8,7 @@ export class Type {
     id: number
 
     @Column()
-    name: string
+    name: string;
 
     @CreateDateColumn()
     createdAt: Date;
