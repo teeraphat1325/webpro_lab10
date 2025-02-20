@@ -1,7 +1,9 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Type } from 'src/types/entities/type.entity';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Product {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -11,6 +13,19 @@ export class Product {
   @Column()
   price: number;
 
-  @Column()
-  category: 'drink' | 'bakery';
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
+
+  @ManyToOne(() => Type, (type) => type.products)
+  type: Type;
+
+  // @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
+  // orderItems: OrderItem[];
+
 }
