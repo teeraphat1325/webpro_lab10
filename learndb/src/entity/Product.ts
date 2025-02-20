@@ -1,0 +1,29 @@
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from "typeorm"
+import { Type } from "./Type"
+import { OrderItem } from "./OrderItem"
+
+@Entity()
+export class Product {
+
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    name: string
+
+    @Column()
+    price: number
+
+    @CreateDateColumn()
+    created : Date
+
+    @UpdateDateColumn()
+    updated : Date
+
+    @ManyToOne(() => Type, (type) => type.products)
+    type: Type
+
+    @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
+    orderItems: OrderItem[];
+
+}
