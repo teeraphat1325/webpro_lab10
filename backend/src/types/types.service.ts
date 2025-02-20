@@ -30,4 +30,5 @@ export class TypesService {
   remove(id: number) {
     return this.typesRepository.softDelete(id);
   }
+
 }
