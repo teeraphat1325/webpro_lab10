@@ -30,7 +30,7 @@ export class OrderItem {
     @DeleteDateColumn()
     deletedAt: Date;
 
-    @ManyToOne(() => Order, (order) => order.orderItems)
+    @ManyToOne(() => Order, (order) => order.orderItems, { onDelete: "CASCADE" })
     order: Order
 
     @ManyToOne(() => Product, (product) => product.orderItems)

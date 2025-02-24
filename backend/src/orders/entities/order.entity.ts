@@ -24,7 +24,7 @@ export class Order {
     @DeleteDateColumn()
     deletedAt: Date;
 
-    @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+    @OneToMany(() => OrderItem, (orderItem) => orderItem.order, { cascade: true, onDelete: "CASCADE" })
     orderItems: OrderItem[]
 
     @ManyToOne(() => User, (user) => user.orders)

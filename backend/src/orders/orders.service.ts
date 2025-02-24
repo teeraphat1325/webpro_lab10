@@ -50,14 +50,14 @@ export class OrdersService {
   }
 
   findAll() {
-    return `This action returns all orders`;
+    return this.ordersRepository.find({ relations: { user: true, orderItems: true } });
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} order`;
+    return this.ordersRepository.findOneOrFail({ where: { id }, relations: { user: true, orderItems: true } });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} order`;
+    return this.ordersRepository.delete(id);
   }
 }
