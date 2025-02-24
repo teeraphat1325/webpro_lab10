@@ -44,6 +44,6 @@ export class ProductsService {
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
-    await this.productsRepository.remove(product);
+    await this.productsRepository.softRemove(product);
   }
 }
