@@ -1,16 +1,25 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { OrderItem } from "../entities/orderItem.entity";
+import { IsArray, IsNumber, Min } from "class-validator";
 
 export class OrderItemDto {
-    @ApiProperty()
+    @ApiProperty({ description: "Id สินค้า", example: 1 })
+    @IsNumber()
+    @Min(1, { message: "Product Id must more than 1." })
     productId: number;
-    @ApiProperty()
+
+    @ApiProperty({ description: "จำนวนสินค้า", example: 1 })
+    @IsNumber()
+    @Min(1, { message: "Qty must more than 1." })
     qty: number;
 }
 export class CreateOrderDto {
-    @ApiProperty()
+    @ApiProperty({ description: "Id ผู้ใช้" })
+    @IsNumber()
+    @Min(1, { message: "User Id must more than 1." })
     userId: number;
 
-    @ApiProperty()
+    @ApiProperty({ type: [OrderItemDto] })
+    @IsArray()
     orderItems: OrderItemDto[];
 }
