@@ -1,5 +1,6 @@
+import { OrderItem } from 'src/orders/entities/orderItem.entity';
 import { Type } from 'src/types/entities/type.entity';
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @Entity()
 export class Product {
@@ -28,7 +29,7 @@ export class Product {
   @ManyToOne(() => Type, (type) => type.products)
   type: Type;
 
-  // @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
-  // orderItems: OrderItem[];
+  @OneToMany(() => OrderItem, (orderItem) => orderItem.product)
+  orderItems: OrderItem[];
 
 }

@@ -1,5 +1,6 @@
+import { Order } from 'src/orders/entities/order.entity';
 import { Role } from 'src/roles/entities/role.entity';
-import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class User {
@@ -20,4 +21,6 @@ export class User {
   gender: 'male' | 'female';
   age: number;
 
+  @OneToMany(() => Order, (order) => order.user)
+  orders: Order[];
 }
