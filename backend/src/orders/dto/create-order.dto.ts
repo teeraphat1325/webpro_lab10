@@ -1,6 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { OrderItem } from "../entities/orderItem.entity";
-import { IsArray, IsNumber, Min } from "class-validator";
+import { ArrayMinSize, IsArray, IsNumber, Min } from "class-validator";
 
 export class OrderItemDto {
     @ApiProperty({ description: "Id สินค้า", example: 1 })
@@ -21,5 +21,6 @@ export class CreateOrderDto {
 
     @ApiProperty({ type: [OrderItemDto] })
     @IsArray()
+    @ArrayMinSize(1)
     orderItems: OrderItemDto[];
 }

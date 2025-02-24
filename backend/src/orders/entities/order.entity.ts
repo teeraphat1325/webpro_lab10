@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, ManyToOne } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToMany, ManyToOne, DeleteDateColumn } from "typeorm"
 import { OrderItem } from "./orderItem.entity"
 import { User } from "src/users/entities/user.entity"
 
@@ -16,13 +16,17 @@ export class Order {
     qty: number
 
     @CreateDateColumn()
-    created: Date
+    createdAt: Date;
 
     @UpdateDateColumn()
-    updated: Date
+    updatedAt: Date;
+
+    @DeleteDateColumn()
+    deletedAt: Date;
 
     @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
     orderItems: OrderItem[]
+
     @ManyToOne(() => User, (user) => user.orders)
     user: User;
 }
