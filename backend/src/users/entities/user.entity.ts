@@ -11,13 +11,13 @@ export class User {
 
   @Column()
   password: string;
-  // roles: ('admin' | 'user')[];
+
+  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
+  @JoinTable()
+  roles: Role[]
 
   @Column()
   gender: 'male' | 'female';
   age: number;
 
-  @ManyToMany(() => Role, (role) => role.users, { cascade: true })
-  @JoinTable()
-  roles: Role[];
 }
