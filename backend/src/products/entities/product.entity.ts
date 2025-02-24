@@ -13,6 +13,9 @@ export class Product {
   @Column()
   price: number;
 
+  @Column()
+  typeId: number;
+
   @CreateDateColumn()
   createdAt: Date;
 
