@@ -14,12 +14,9 @@ export class ProductsService {
   ) { }
 
   async create(createProductDto: CreateProductDto): Promise<Product> {
-    const errors = await validate(createProductDto);
-    if (errors.length > 0) {
-      throw new Error(`Validation failed: ${errors.toString()}`);
-    }
     const newProduct = this.productsRepository.create(createProductDto);
-    return await this.productsRepository.save(newProduct);
+    await this.productsRepository.save(newProduct)
+    return this.productsRepository.findOneOrFail({ where: { id: newProduct.id }, relations: ['type'] })
   }
 
   async findAll(): Promise<Product[]> {
