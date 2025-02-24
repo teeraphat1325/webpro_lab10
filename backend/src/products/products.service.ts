@@ -25,6 +25,7 @@ export class ProductsService {
 
   async findOne(id: number): Promise<Product> {
     const product = await this.productsRepository.findOneOrFail({ where: { id: id }, relations: ["type"] });
+
     return product;
   }
 
@@ -33,10 +34,8 @@ export class ProductsService {
     updateProductDto: UpdateProductDto,
   ): Promise<Product> {
     await this.productsRepository.update(id, updateProductDto);
-    const updatedProduct = await this.productsRepository.findOneBy({ id });
-    if (!updatedProduct) {
-      throw new NotFoundException(`Product with ID ${id} not found`);
-    }
+    const updatedProduct = await this.productsRepository.findOneByOrFail({ id });
+
     return updatedProduct;
   }
 
