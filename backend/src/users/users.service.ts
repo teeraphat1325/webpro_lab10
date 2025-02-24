@@ -39,12 +39,14 @@ export class UsersService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    await this.usersRepository.update(id, updateUserDto);
-    const updatedUser = await this.usersRepository.findOneBy({ id });
-    if (!updatedUser) {
-      throw new NotFoundException(`User with ID ${id} not found`);
+    const user = await this.usersRepository.findOneOrFail({ where: { id: id }, relations: ["roles"] });
+    user.roles = []; //clear role เดิมทิ้ง
+    await this.usersRepository.save(user);
+    if (updateUserDto.roleIds) {
+      user.roles = await this.rolesRepository.findBy({ id: In(updateUserDto.roleIds) });
     }
-    return updatedUser;
+    const updateUser = { ...user, ...updateUserDto };
+    return await this.usersRepository.save(updateUser);
   }
 
   async remove(id: number): Promise<void> {
